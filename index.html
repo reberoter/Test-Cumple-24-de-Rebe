@@ -1,1 +1,763 @@
-<!DOCTYPE html> <html lang="es"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Test de Personalidad - Cumple de Rebeca 🎉</title> <style> * { margin: 0; padding: 0; box-sizing: border-box; } body { font-family: 'Comic Sans MS', cursive, sans-serif; background: linear-gradient(135deg, #FFD700 0%, #40E0D0 50%, #FFFFFF 100%); min-height: 100vh; padding: 20px; } .container { max-width: 700px; margin: 0 auto; background: rgba(255, 255, 255, 0.95); border-radius: 25px; box-shadow: 0 25px 50px rgba(0,0,0,0.15); padding: 30px; backdrop-filter: blur(10px); border: 3px solid #FFD700; } .header { text-align: center; margin-bottom: 30px; } .header h1 { color: #FF6B9D; font-size: 2.5em; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); } .header p { color: #666; font-size: 1.1em; } .test-selection { display: grid; gap: 20px; margin-bottom: 30px; } .test-btn { padding: 20px; border: none; border-radius: 20px; font-size: 1.2em; font-weight: bold; cursor: pointer; transition: all 0.3s ease; color: white; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); position: relative; overflow: hidden; } .test-btn:before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: left 0.5s; } .test-btn:hover:before { left: 100%; } .test-btn:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.2); } .test-zambo { background: linear-gradient(45deg, #FF6B9D, #FFD700); } .test-emoji { background: linear-gradient(45deg, #40E0D0, #FF6B9D); } .test-friend { background: linear-gradient(45deg, #FFD700, #40E0D0); } .test-container { display: none; animation: slideIn 0.5s ease; } .question { background: linear-gradient(45deg, #40E0D0, #FFD700); color: white; padding: 25px; border-radius: 20px; margin-bottom: 25px; font-size: 1.2em; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1); } .question-counter { background: rgba(255,255,255,0.2); display: inline-block; padding: 8px 15px; border-radius: 15px; margin-bottom: 15px; font-size: 0.9em; } .options { display: grid; gap: 15px; margin-bottom: 25px; } .option-btn { padding: 18px; border: 3px solid #FFD700; border-radius: 15px; background: white; color: #333; font-size: 1em; cursor: pointer; transition: all 0.3s ease; font-weight: 500; } .option-btn:hover { background: #FFD700; color: white; transform: translateY(-3px); box-shadow: 0 8px 15px rgba(255, 215, 0, 0.3); } .option-btn.selected { background: #40E0D0; color: white; border-color: #40E0D0; } .navigation { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; } .nav-btn { padding: 12px 25px; border: none; border-radius: 20px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; } .back-btn { background: linear-gradient(45deg, #FF6B9D, #FFD700); color: white; } .next-btn { background: linear-gradient(45deg, #40E0D0, #FF6B9D); color: white; display: none; } .nav-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 15px rgba(0,0,0,0.2); } .progress-bar { width: 100%; height: 8px; background: rgba(64, 224, 208, 0.3); border-radius: 4px; margin: 20px 0; overflow: hidden; } .progress { height: 100%; background: linear-gradient(45deg, #FFD700, #40E0D0); width: 0%; transition: width 0.3s ease; border-radius: 4px; } .result { display: none; text-align: center; animation: bounceIn 0.8s ease; } .result-image { font-size: 5em; margin: 20px 0; } .result-title { font-size: 2em; color: #FF6B9D; margin-bottom: 15px; font-weight: bold; } .result-description { font-size: 1.1em; color: #666; line-height: 1.6; margin-bottom: 25px; background: rgba(64, 224, 208, 0.1); padding: 20px; border-radius: 15px; border-left: 5px solid #40E0D0; } .share-btn { background: linear-gradient(45deg, #FF6B9D, #FFD700); color: white; border: none; padding: 15px 30px; border-radius: 25px; font-size: 1.1em; cursor: pointer; margin: 10px; transition: all 0.3s ease; } .share-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); } @keyframes slideIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } } @keyframes bounceIn { 0% { opacity: 0; transform: scale(0.3); } 50% { opacity: 1; transform: scale(1.05); } 70% { transform: scale(0.9); } 100% { transform: scale(1); } } .confetti { position: fixed; width: 10px; height: 10px; background: #FFD700; animation: confetti-fall 3s linear infinite; } @keyframes confetti-fall { 0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } } </style> </head> <body> <div class="container"> <div class="header"> <h1>🎉 Test de Personalidad 🎂</h1> <p>¡Cumpleaños de Rebeca! Descubre quién eres realmente</p> </div> <!-- Pantalla de selección --> <div id="test-selection" class="test-selection"> <button class="test-btn test-zambo" onclick="startTest('zambo')"> 🥨 ¿Qué tipo de Zambo soy? <br><small>Descubre tu botana interior hondureña</small> </button> <button class="test-btn test-emoji" onclick="startTest('emoji')"> 😄 ¿Qué emoji me representa? <br><small>Tu personalidad en un emoji</small> </button> <button class="test-btn test-friend" onclick="startTest('friend')"> 👭 ¿Quién soy del grupo? <br><small>Descubre cuál de las 9 amigas eres</small> </button> </div> <!-- Container del test --> <div id="test-container" class="test-container"> <div class="progress-bar"> <div class="progress" id="progress"></div> </div> <div class="question" id="question"> <div class="question-counter"> Pregunta <span id="current-q">1</span> de <span id="total-q">5</span> </div> <div id="question-text"></div> </div> <div class="options" id="options"></div> <div class="navigation"> <button class="nav-btn back-btn" onclick="goBack()">← Volver</button> <button class="nav-btn next-btn" id="next-btn" onclick="nextQuestion()">Siguiente →</button> </div> </div> <!-- Resultado --> <div id="result" class="result"> <div class="result-image" id="result-image"></div> <div class="result-title" id="result-title"></div> <div class="result-description" id="result-description"></div> <button class="share-btn" onclick="shareResult()">📤 Compartir Resultado</button> <button class="share-btn" onclick="goBack()">🔄 Hacer Otro Test</button> </div> </div> <script> const tests = { zambo: { title: "¿Qué tipo de Zambo soy?", questions: [ { question: "¿Cómo prefieres pasar tu tiempo libre?", options: [ "Relajada en casa viendo Netflix", "Saliendo a fiestas y conociendo gente nueva", "Haciendo actividades creativas", "Compartiendo con mis mejores amigas" ] }, { question: "¿Cuál es tu sabor favorito?", options: [ "Dulce y suave", "Salado y crujiente", "Picante y audaz", "Una mezcla de todo" ] }, { question: "¿Cómo eres en las reuniones?", options: [ "La que siempre está ahí pero tranquila", "El alma de la fiesta", "La que hace que todo sea más interesante", "La que todos buscan para hablar" ] }, { 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Personalidad - Cumple de Rebeca 🎉</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #FFD700 0%, #40E0D0 50%, #FFFFFF 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 3px solid #FFD700;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #FF6B9D;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .test-selection {
+            display: grid;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .test-btn {
+            padding: 20px;
+            border: none;
+            border-radius: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .test-btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .test-btn:hover:before {
+            left: 100%;
+        }
+
+        .test-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .test-zambo { background: linear-gradient(45deg, #FF6B9D, #FFD700); }
+        .test-emoji { background: linear-gradient(45deg, #40E0D0, #FF6B9D); }
+        .test-friend { background: linear-gradient(45deg, #FFD700, #40E0D0); }
+
+        .test-container {
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+
+        .question {
+            background: linear-gradient(45deg, #40E0D0, #FFD700);
+            color: white;
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            font-size: 1.2em;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .question-counter {
+            background: rgba(255,255,255,0.2);
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+
+        .options {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .option-btn {
+            padding: 18px;
+            border: 3px solid #FFD700;
+            border-radius: 15px;
+            background: white;
+            color: #333;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .option-btn:hover {
+            background: #FFD700;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .option-btn.selected {
+            background: #40E0D0;
+            color: white;
+            border-color: #40E0D0;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .nav-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, #FF6B9D, #FFD700);
+            color: white;
+        }
+
+        .next-btn {
+            background: linear-gradient(45deg, #40E0D0, #FF6B9D);
+            color: white;
+            display: none;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(64, 224, 208, 0.3);
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(45deg, #FFD700, #40E0D0);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .result {
+            display: none;
+            text-align: center;
+            animation: bounceIn 0.8s ease;
+        }
+
+        .result-image {
+            font-size: 5em;
+            margin: 20px 0;
+        }
+
+        .result-title {
+            font-size: 2em;
+            color: #FF6B9D;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .result-description {
+            font-size: 1.1em;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            background: rgba(64, 224, 208, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 5px solid #40E0D0;
+        }
+
+        .share-btn {
+            background: linear-gradient(45deg, #FF6B9D, #FFD700);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.3); }
+            50% { opacity: 1; transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #FFD700;
+            animation: confetti-fall 3s linear infinite;
+        }
+
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎉 Test de Personalidad 🎂</h1>
+            <p>¡Cumpleaños de Rebeca! Descubre quién eres realmente</p>
+        </div>
+
+        <!-- Pantalla de selección -->
+        <div id="test-selection" class="test-selection">
+            <button class="test-btn test-zambo" onclick="startTest('zambo')">
+                🥨 ¿Qué tipo de Zambo soy?
+                <br><small>Descubre tu botana interior hondureña</small>
+            </button>
+            <button class="test-btn test-emoji" onclick="startTest('emoji')">
+                😄 ¿Qué emoji me representa?
+                <br><small>Tu personalidad en un emoji</small>
+            </button>
+            <button class="test-btn test-friend" onclick="startTest('friend')">
+                👭 ¿Quién soy del grupo?
+                <br><small>Descubre cuál de las 9 amigas eres</small>
+            </button>
+        </div>
+
+        <!-- Container del test -->
+        <div id="test-container" class="test-container">
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+            
+            <div class="question" id="question">
+                <div class="question-counter">
+                    Pregunta <span id="current-q">1</span> de <span id="total-q">5</span>
+                </div>
+                <div id="question-text"></div>
+            </div>
+
+            <div class="options" id="options"></div>
+
+            <div class="navigation">
+                <button class="nav-btn back-btn" onclick="goBack()">← Volver</button>
+                <button class="nav-btn next-btn" id="next-btn" onclick="nextQuestion()">Siguiente →</button>
+            </div>
+        </div>
+
+        <!-- Resultado -->
+        <div id="result" class="result">
+            <div class="result-image" id="result-image"></div>
+            <div class="result-title" id="result-title"></div>
+            <div class="result-description" id="result-description"></div>
+            <button class="share-btn" onclick="shareResult()">📤 Compartir Resultado</button>
+            <button class="share-btn" onclick="goBack()">🔄 Hacer Otro Test</button>
+        </div>
+    </div>
+
+    <script>
+        const tests = {
+            zambo: {
+                title: "¿Qué tipo de Zambo soy?",
+                questions: [
+                    {
+                        question: "¿Cómo prefieres pasar tu tiempo libre?",
+                        options: [
+                            "Relajada en casa viendo Netflix",
+                            "Saliendo a fiestas y conociendo gente nueva",
+                            "Haciendo actividades creativas",
+                            "Compartiendo con mis mejores amigas"
+                        ]
+                    },
+                    {
+                        question: "¿Cuál es tu sabor favorito?",
+                        options: [
+                            "Dulce y suave",
+                            "Salado y crujiente",
+                            "Picante y audaz",
+                            "Una mezcla de todo"
+                        ]
+                    },
+                    {
+                        question: "¿Cómo eres en las reuniones?",
+                        options: [
+                            "La que siempre está ahí pero tranquila",
+                            "El alma de la fiesta",
+                            "La que hace que todo sea más interesante",
+                            "La que todos buscan para hablar"
+                        ]
+                    },
+                    {
+                        question: "¿Qué te describe mejor?",
+                        options: [
+                            "Confiable y constante",
+                            "Divertida y espontánea",
+                            "Única e impredecible",
+                            "Perfecta para cualquier ocasión"
+                        ]
+                    },
+                    {
+                        question: "¿Cuál sería tu lugar ideal?",
+                        options: [
+                            "Un lugar cómodo y familiar",
+                            "El centro de atención",
+                            "Un lugar único y especial",
+                            "Donde estén mis personas favoritas"
+                        ]
+                    }
+                ],
+                results: {
+                    A: {
+                        title: "¡Eres Zambo Clásico! 🥨",
+                        image: "🥨",
+                        description: "Eres la botana de siempre, la que nunca falla. Confiable, querida por todos y perfecta para cualquier momento. Como un zambo tradicional, siempre estás ahí cuando te necesitan y tu presencia es reconfortante. ¡Eres la base sólida de cualquier grupo!"
+                    },
+                    B: {
+                        title: "¡Eres Zambo Enchilado! 🌶️🥨",
+                        image: "🌶️",
+                        description: "¡Eres la versión con más sabor! Divertida, emocionante y siempre agregando ese toque especial que hace que todo sea mejor. Como un zambo enchilado, tienes esa chispa extra que hace que la gente siempre quiera más de ti. ¡Eres la diversión personificada!"
+                    },
+                    C: {
+                        title: "¡Eres Zambo Gourmet! ✨🥨",
+                        image: "✨",
+                        description: "Eres única y sofisticada, como un zambo con ingredientes especiales. No eres para cualquier ocasión, pero cuando apareces, todos saben que algo especial está pasando. Tu personalidad tiene esos toques únicos que te hacen inolvidable. ¡Eres una experiencia completa!"
+                    },
+                    D: {
+                        title: "¡Eres Zambo Mix! 🌈🥨",
+                        image: "🌈",
+                        description: "Eres la combinación perfecta de todo lo bueno. Como una mezcla de zambos, tienes un poco de cada personalidad y eso te hace súper versátil. Puedes adaptarte a cualquier situación y siempre tienes algo que ofrecer. ¡Eres la opción favorita de todos!"
+                    }
+                }
+            },
+            emoji: {
+                title: "¿Qué emoji me representa?",
+                questions: [
+                    {
+                        question: "¿Cómo reaccionas cuando recibes buenas noticias?",
+                        options: [
+                            "Salto de emoción y lo comparto con todos",
+                            "Sonrío mucho y me siento súper feliz",
+                            "Me pongo romántica y sentimental",
+                            "Me río mucho y hago bromas al respecto"
+                        ]
+                    },
+                    {
+                        question: "¿Cuál es tu forma favorita de expresar amor?",
+                        options: [
+                            "Con muchos abrazos y celebraciones",
+                            "Con sonrisas y palabras dulces",
+                            "Con gestos románticos y detalles",
+                            "Con chistes y momentos divertidos"
+                        ]
+                    },
+                    {
+                        question: "¿Cómo eres en las fotos?",
+                        options: [
+                            "Siempre con los brazos arriba celebrando",
+                            "Con mi mejor sonrisa natural",
+                            "Haciendo poses tiernas o románticas",
+                            "Haciendo caras chistosas"
+                        ]
+                    },
+                    {
+                        question: "¿Qué mensaje envías más en WhatsApp?",
+                        options: [
+                            "¡¡¡YAAAAS!!! ¡¡¡LO LOGRAMOS!!!",
+                            "Todo va a estar bien 😊",
+                            "Te quiero mucho 💕",
+                            "JAJAJAJA no manches 😂"
+                        ]
+                    },
+                    {
+                        question: "¿Cómo describirías tu energía?",
+                        options: [
+                            "Pura emoción y celebración",
+                            "Alegría constante y positiva",
+                            "Dulce y llena de amor",
+                            "Divertida y llena de risas"
+                        ]
+                    }
+                ],
+                results: {
+                    A: {
+                        title: "¡Eres el emoji 🎉!",
+                        image: "🎉",
+                        description: "Eres pura celebración y alegría. Siempre estás lista para festejar los logros de otros y convertir cualquier momento en una fiesta. Tu energía es contagiosa y haces que todos se sientan especiales. Eres la que transforma los días ordinarios en extraordinarios. ¡La vida contigo siempre es una celebración!"
+                    },
+                    B: {
+                        title: "¡Eres el emoji 😊!",
+                        image: "😊",
+                        description: "Eres la sonrisa más dulce y genuina que existe. Tu personalidad irradia calidez y positividad constante. Eres la amiga que siempre ve el lado bueno de las cosas y contagias paz y felicidad a todos a tu alrededor. Tu sonrisa es tu superpoder y tu mejor carta de presentación."
+                    },
+                    C: {
+                        title: "¡Eres el emoji 😍!",
+                        image: "😍",
+                        description: "Eres puro amor y dulzura. Ves la belleza en todo y tu corazón está lleno de cariño para dar. Eres romántica, detallista y siempre haces que las personas se sientan amadas y especiales. Tu forma de amar es intensa y hermosa, y contagias amor por donde pasas."
+                    },
+                    D: {
+                        title: "¡Eres el emoji 😂!",
+                        image: "😂",
+                        description: "Eres la risa personificada. Tu sentido del humor es tu mayor fortaleza y haces que todos se olviden de sus problemas cuando estás cerca. Tienes esa habilidad especial de encontrar algo gracioso en cualquier situación y convertir los momentos difíciles en recuerdos divertidos. ¡Eres medicina para el alma!"
+                    }
+                }
+            },
+            friend: {
+                title: "¿Quién soy del grupo?",
+                questions: [
+                    {
+                        question: "En una crisis grupal, ¿cuál sería tu papel?",
+                        options: [
+                            "La que mantiene la calma y da los mejores consejos", // Nallely
+                            "La que encuentra la solución práctica rápidamente", // Rosely
+                            "La que hace que todas se rían para relajar el ambiente", // Daniela
+                            "La que escucha a todas y conecta con cada una", // Rebeca
+                            "La que ofrece dulces palabras y comprensión", // BlancaFlor
+                            "La que busca el punto medio y une al grupo", // Marcel
+                            "La que actúa con sabiduría y nobleza", // Beatriz
+                            "La que mantiene la paz y evita conflictos" // Eimy
+                        ]
+                    },
+                    {
+                        question: "¿Cómo eres en las reuniones grupales?",
+                        options: [
+                            "La consejera sabia que todos buscan", // Nallely
+                            "La organizadora que tiene todo bajo control", // Rosely
+                            "La que hace que todo sea más divertido", // Daniela
+                            "La que se asegura de que todas participen", // Rebeca
+                            "La que siempre tiene palabras dulces para todos", // BlancaFlor
+                            "La que todos quieren tener cerca", // Marcel
+                            "La que da el mejor ejemplo de comportamiento", // Beatriz
+                            "La mediadora que mantiene la armonía" // Eimy
+                        ]
+                    },
+                    {
+                        question: "¿Qué regalo darías a una amiga que está triste?",
+                        options: [
+                            "Un consejo sabio y tu experiencia de vida", // Nallely
+                            "Algo práctico que realmente necesita", // Rosely
+                            "Algo que la haga reír y olvide sus problemas", // Daniela
+                            "Tiempo de calidad y tu presencia completa", // Rebeca
+                            "Algo dulce y lleno de amor", // BlancaFlor
+                            "Tu compañía incondicional", // Marcel
+                            "Un gesto noble que toque su corazón", // Beatriz
+                            "Un ambiente de paz y tranquilidad" // Eimy
+                        ]
+                    },
+                    {
+                        question: "¿Cuál es tu fortaleza en la amistad?",
+                        options: [
+                            "Tu madurez y sabiduría para aconsejar", // Nallely
+                            "Tu capacidad de resolver cualquier problema", // Rosely
+                            "Tu habilidad para alegrar cualquier día", // Daniela
+                            "Tu don para conectar con todos", // Rebeca
+                            "Tu dulzura y comprensión infinita", // BlancaFlor
+                            "Ser la amiga que todos quieren tener", // Marcel
+                            "Tu nobleza y buen corazón", // Beatriz
+                            "Tu capacidad de mantener la paz" // Eimy
+                        ]
+                    },
+                    {
+                        question: "¿Cómo prefieres demostrar que te importan tus amigas?",
+                        options: [
+                            "Dándoles consejos basados en tu experiencia", // Nallely
+                            "Ayudándolas a resolver sus problemas prácticos", // Rosely
+                            "Haciéndolas reír cuando más lo necesitan", // Daniela
+                            "Incluyéndolas en todo y conectándolas con más gente", // Rebeca
+                            "Con gestos dulces y palabras de amor", // BlancaFlor
+                            "Siendo la amiga leal que siempre comparte", // Marcel
+                            "Con actos nobles y desinteresados", // Beatriz
+                            "Creando un ambiente de calma y comprensión" // Eimy
+                        ]
+                    },
+                    {
+                        question: "¿Qué tipo de mensajes envías más en el grupo?",
+                        options: [
+                            "Consejos reflexivos y palabras de sabiduría", // Nallely
+                            "Soluciones a problemas y organizando planes", // Rosely
+                            "Memes, chistes y cosas que las hagan reír", // Daniela
+                            "Invitaciones y conectando a todas", // Rebeca
+                            "Mensajes de amor y apoyo emocional", // BlancaFlor
+                            "Respuestas que todos esperan y valoran", // Marcel
+                            "Mensajes nobles que inspiran a las demás", // Beatriz
+                            "Mensajes de paz y que calman tensiones" // Eimy
+                        ]
+                    },
+                    {
+                        question: "En una salida grupal, tú eres la que...",
+                        options: [
+                            "Da los mejores consejos sobre qué hacer", // Nallely
+                            "Organiza todo para que salga perfecto", // Rosely
+                            "Hace que todas se diviertan al máximo", // Daniela
+                            "Invita a más gente y hace nuevas amistades", // Rebeca
+                            "Se asegura de que todas se sientan incluidas y queridas", // BlancaFlor
+                            "Es el centro de atención que todos buscan", // Marcel
+                            "Da el mejor ejemplo y actúa con clase", // Beatriz
+                            "Mantiene el ambiente relajado y sin drama" // Eimy
+                        ]
+                    },
+                    {
+                        question: "¿Cómo describirían tus amigas tu personalidad?",
+                        options: [
+                            "Madura, sabia y la más centrada del grupo", // Nallely
+                            "Práctica, eficiente y la que siempre resuelve", // Rosely
+                            "Divertida, chistosa y la que alegra a todos", // Daniela
+                            "Sociable, conectora y la que une a todos", // Rebeca
+                            "Dulce, amorosa y la más tierna", // BlancaFlor
+                            "Compartida, querida y la que todos buscan", // Marcel
+                            "Noble, elegante y la que inspira respeto", // Beatriz
+                            "Pacífica, calmada y la que trae tranquilidad" // Eimy
+                        ]
+                    }
+                ],
+                results: {
+                    A: {
+                        title: "¡Eres como Nallely! 🧠",
+                        image: "🧠",
+                        description: "Eres la más madura del grupo. Tu sabiduría y consejos son oro puro para todas tus amigas. Como Nallely, tienes esa perspectiva de vida que viene de la experiencia y la reflexión. Eres la persona a la que todas recurren cuando necesitan una opinión sensata y un consejo que realmente las ayude. Tu madurez es tu superpoder."
+                    },
+                    B: {
+                        title: "¡Eres como Rosely! 🔧",
+                        image: "🔧",
+                        description: "Eres la que más resuelve en el grupo. Tienes esa habilidad especial de encontrar soluciones prácticas a cualquier problema. Como Rosely, eres la persona a la que todas recurren cuando necesitan que algo se arregle o se organice. Tu mente práctica y tu eficiencia son tu superpoder. ¡Sin ti el grupo estaría perdido!"
+                    },
+                    C: {
+                        title: "¡Eres como Daniela! 😄",
+                        image: "😄",
+                        description: "Eres la más chistosa del grupo. Tu humor es tu regalo al mundo y tienes esa capacidad mágica de hacer reír a cualquiera, incluso en los peores momentos. Como Daniela, eres la luz que ilumina cualquier reunión y la que transforma los momentos aburridos en recuerdos divertidos. ¡Eres la medicina del alma del grupo!"
+                    },
+                    D: {
+                        title: "¡Eres como Rebeca! 🌟",
+                        image: "🌟",
+                        description: "Eres la más sociable del grupo. Tienes ese don especial de conectar con todas las personas y hacer que todos se sientan incluidos y especiales. Como Rebeca, eres el centro social que mantiene al grupo unido y siempre estás creando nuevas conexiones y oportunidades para que todas se diviertan juntas. ¡Eres el alma social del grupo!"
+                    },
+                    E: {
+                        title: "¡Eres como BlancaFlor! 🌸",
+                        image: "🌸",
+                        description: "Eres la amiga más dulce del grupo. Tu corazón está lleno de amor y siempre tienes las palabras perfectas para consolar y apoyar a tus amigas. Como BlancaFlor, tienes esa dulzura natural que hace que todos se sientan queridos y especiales. Tu amor incondicional es el abrazo que el grupo siempre necesita."
+                    },
+                    F: {
+                        title: "¡Eres como Marcel! 💕",
+                        image: "💕",
+                        description: "Eres la amiga compartida del grupo. Tienes esa personalidad especial que hace que todos quieran estar contigo y compartir momentos especiales. Como Marcel, eres la que une diferentes círculos de amistades y la que todos buscan cuando quieren pasar un buen rato. Tu presencia es un regalo para cualquier grupo."
+                    },
+                    G: {
+                        title: "¡Eres como Beatriz! 👑",
+                        image: "👑",
+                        description: "Eres la más noble del grupo. Tu corazón es puro oro y siempre actúas con bondad y comprensión. Eres el ejemplo de lo que significa ser una buena persona, y tu nobleza inspira a todas las demás. Como Beatriz, tienes esa elegancia natural del alma que hace que todos te respeten y admiren. ¡Eres la reina del grupo!"
+                    },
+                    H: {
+                        title: "¡Eres como Eimy! ☮️",
+                        image: "☮️",
+                        description: "Eres la más pacífica del grupo. Tu energía calmada y tu habilidad para mantener la armonía son increíbles. Como Eimy, tienes ese don especial de traer paz a cualquier situación tensa y hacer que todos se sientan en calma. Tu presencia serena es como un oasis de tranquilidad para el grupo. ¡Eres la paz que todos necesitamos!"
+                    }
+                }
+            }
+        };
+
+        let currentTest = null;
+        let currentQuestion = 0;
+        let answers = [];
+
+        function startTest(testType) {
+            currentTest = tests[testType];
+            currentQuestion = 0;
+            answers = [];
+            
+            document.getElementById('test-selection').style.display = 'none';
+            document.getElementById('test-container').style.display = 'block';
+            document.getElementById('total-q').textContent = currentTest.questions.length;
+            
+            showQuestion();
+        }
+
+        function showQuestion() {
+            if (currentQuestion >= currentTest.questions.length) {
+                showResult();
+                return;
+            }
+
+            const question = currentTest.questions[currentQuestion];
+            const progress = ((currentQuestion + 1) / currentTest.questions.length) * 100;
+            
+            document.getElementById('progress').style.width = progress + '%';
+            document.getElementById('current-q').textContent = currentQuestion + 1;
+            document.getElementById('question-text').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                button.onclick = () => selectOption(index, button);
+                optionsContainer.appendChild(button);
+            });
+            
+            document.getElementById('next-btn').style.display = 'none';
+        }
+
+        function selectOption(index, button) {
+            // Remover selección previa
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            // Seleccionar nueva opción
+            button.classList.add('selected');
+            answers[currentQuestion] = index;
+            
+            // Mostrar botón siguiente
+            document.getElementById('next-btn').style.display = 'inline-block';
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            showQuestion();
+        }
+
+        function showResult() {
+            // Calcular resultado basado en respuestas más frecuentes
+            let counts, keys;
+            
+            if (currentTest.title === "¿Quién soy del grupo?") {
+                // Para el test de amigas (8 opciones)
+                counts = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, G: 0, H: 0 };
+                keys = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+            } else {
+                // Para los otros tests (4 opciones)
+                counts = { A: 0, B: 0, C: 0, D: 0 };
+                keys = ['A', 'B', 'C', 'D'];
+            }
+            
+            answers.forEach(answer => {
+                counts[keys[answer]]++;
+            });
+            
+            const resultKey = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+            const result = currentTest.results[resultKey];
+            
+            document.getElementById('test-container').style.display = 'none';
+            document.getElementById('result').style.display = 'block';
+            
+            document.getElementById('result-image').textContent = result.image;
+            document.getElementById('result-title').textContent = result.title;
+            document.getElementById('result-description').textContent = result.description;
+            
+            // Crear confeti
+            createConfetti();
+        }
+
+        function createConfetti() {
+            const colors = ['#FFD700', '#40E0D0', '#FF6B9D', '#FFFFFF'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 3 + 's';
+                    confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 6000);
+                }, i * 50);
+            }
+        }
+
+        function shareResult() {
+            const resultTitle = document.getElementById('result-title').textContent;
+            const resultDescription = document.getElementById('result-description').textContent;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Mi resultado en el test de cumpleaños de Rebeca',
+                    text: `${resultTitle}\n\n${resultDescription}\n\n¡Haz tú también el test!`
+                });
+            } else {
+                // Fallback: copiar al clipboard
+                const textToCopy = `🎉 Mi resultado en el test de cumpleaños de Rebeca:\n\n${resultTitle}\n\n${resultDescription}\n\n¡Haz tú también el test!`;
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    alert('¡Resultado copiado al portapapeles! Puedes pegarlo donde quieras 📋');
+                });
+            }
+        }
+
+        function goBack() {
+            document.getElementById('test-container').style.display = 'none';
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('test-selection').style.display = 'grid';
+            
+            // Limpiar confeti
+            document.querySelectorAll('.confetti').forEach(c => c.remove());
+        }
+    </script>
+</body>
+</html>
